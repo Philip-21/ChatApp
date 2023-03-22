@@ -12,6 +12,8 @@ type Repo struct {
 	app *config.AppConfig //accessing and modifying properties for the app
 }
 
+// Upgrader specifies parameters for upgrading an HTTP connection to a WebSocket connection
+// making the connection to  persist
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
 	WriteBufferSize: 1024,
@@ -36,7 +38,7 @@ func (m *Repo) Upgrade(w http.ResponseWriter, r *http.Request) (*websocket.Conn,
 	return ws, nil
 }
 
-// Reader Lstens for new messages to our webSockets
+// Reader Listens for new messages to our webSockets
 func (m *Repo) Reader(conn *websocket.Conn) {
 	for {
 		messageType, p, err := conn.ReadMessage()
@@ -45,7 +47,7 @@ func (m *Repo) Reader(conn *websocket.Conn) {
 			return
 		}
 		m.app.InfoLog.Println(string(p))
-
+		//a helper method for getting a writer using NextWriter, writing the message and closing the writer
 		err = conn.WriteMessage(messageType, p)
 		if err != nil {
 			m.app.ErrorLog.Println(err)
@@ -63,6 +65,7 @@ func (m *Repo) Writer(conn *websocket.Conn) {
 			m.app.ErrorLog.Println(err)
 			return
 		}
+		//returns a writer for the next message to send
 		w, err := conn.NextWriter(messageType)
 		if err != nil {
 			m.app.ErrorLog.Println(err)
