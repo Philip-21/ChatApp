@@ -3,8 +3,11 @@ package main
 import (
 	"chatapp/internal/config"
 	"log"
+	"net/http"
 	"os"
 )
+
+const portNumber = "8080"
 
 func main() {
 
@@ -14,6 +17,15 @@ func main() {
 	app := config.AppConfig{
 		InfoLog:  infoLog,
 		ErrorLog: errorLog,
+	}
+	srv := &http.Server{
+		Addr:    portNumber,
+		Handler: routes(&app),
+	}
+	err := srv.ListenAndServe()
+	if err != nil {
+		log.Fatal(err)
+
 	}
 
 }
