@@ -1,6 +1,6 @@
 //web socket implementation
 
-var socket = new WebSocket("ws://localhost:8080/ws");
+var socket = new WebSocket("ws://localhost:8080/");
 
 /*
 connect() triggers a callback whenever it receives

@@ -1,7 +1,7 @@
 /*
 src/App. js : This is the file for App Component. 
 App Component is the main component in React which acts as a container for all other components
-App. js is built to serve makers of static single-page apps. 
+App.js is built to serve makers of static single-page apps. 
 This means that it keeps all page navigation within the session of the webpage, 
 defining "pages" as DOM nodes that can be instantiated
 */
@@ -36,8 +36,8 @@ class App extends Component {
     }
 
     /*
-    move our connect() call from the constructor into a componentDidMount() 
-    function which will be called automatically as part of our Components life-cycle.
+        move our connect() call from the constructor into a componentDidMount() 
+        function which will be called automatically as part of our Components life-cycle.
     */
 
     componentDidMount(){
